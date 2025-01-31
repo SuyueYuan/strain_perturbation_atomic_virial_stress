@@ -12,7 +12,7 @@ Steps (1)-(3) can be performed using most MD simulation packages (here, we provi
 
 
 ### Files:
-- lammps.in: Main LAMMPS script for performing strain perturbation and dumping per-atom energy and Voronoi volume.
+- lammps.in: Main LAMMPS script for performing strain perturbation and dumping per-atom energy and Voronoi volume, applicable to any classical/ML many-body potentials.
 - purterb_strain.in: Subriutines read by lammps.in.
 - diff_virial.py: Python script for post-processing LAMMPS dump files for finite difference calculations.
 - parity_plots.ipynb: Jupyter notebook for generating parity plots comparing SP method results with those from the rigid pairwise virial formulation.
