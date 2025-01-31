@@ -1,0 +1,43 @@
+# -----------------------------------------------
+# Apply Perturbation Strains & 
+# Dump the deformed state for post-processing
+# -----------------------------------------------
+
+clear
+kim    init    SNAP_ZuoChenLi_2019_Si__MO_869330304805_000 metal
+read_restart    restart.${LoopVar}
+kim              interactions Si
+
+# --------------------------------------
+# Recompute per-atom energies.
+# --------------------------------------
+compute 2 all pe/atom
+compute 3 all voronoi/atom
+
+# --------------------------------------
+if "${direction} == xx" then "variable shear equal 0.0"
+if "${direction} == yy" then "variable shear equal 0.0"
+if "${direction} == zz" then "variable shear equal 0.0"
+if "${direction} == xy" then "variable shear equal ly*${delta}"
+if "${direction} == xz" then "variable shear equal lz*${delta}"
+if "${direction} == yz" then "variable shear equal lz*${delta}"
+
+# --------------------------------------
+if "${sign} == P" then  "variable normal equal 1.0+${delta}" & "variable tilt equal ${shear}"
+if "${sign} == N" then "variable normal equal 1.0-${delta}" & "variable tilt equal -${shear}"
+
+# --------------------------------------
+if "${direction} == xx" then "change_box all x scale ${normal} y scale 1 z scale 1 remap units box"
+if "${direction} == yy" then "change_box all x scale 1 y scale ${normal} z scale 1 remap units box"
+if "${direction} == zz" then "change_box all x scale 1 y scale 1 z scale ${normal} remap units box"
+
+if "(${direction} == xy) || (${direction} == xz) || (${direction} == yz)" then "change_box all triclinic remap"
+if "${direction} == xy" then "change_box all xy final ${tilt} remap units box"
+if "${direction} == xz" then "change_box all xz final ${tilt} remap units box"
+if "${direction} == yz" then "change_box all yz final ${tilt} remap units box"
+
+# --------------------------------------
+dump         1 all custom 1 ./dumpDiff_test/dump.${LoopVar}.${direction}${sign} id c_2 c_3[1]
+dump_modify  1 sort id
+run          0
+undump       1

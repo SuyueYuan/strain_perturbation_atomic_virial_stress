@@ -1,0 +1,96 @@
+# ----------------------------------------------------------
+# Loop over frames to perform strain perturbation
+# ----------------------------------------------------------
+variable  LoopVar  loop  0  50
+label LOOP_START
+
+# Initial Simulation Setup
+clear
+kim init SNAP_ZuoChenLi_2019_Si__MO_869330304805_000 metal
+
+atom_style      atomic
+boundary        p p p
+timestep        0.001
+
+# Customize snapshot index to read
+variable idx equal 0+${LoopVar}*4000
+
+# Read the reference geometry
+read_data       Si_ref.data
+# Overwrite positions with the actual snapshot
+read_dump       ./dump/dump.${idx}.gz ${idx} x y z vx vy vz box yes trim yes replace yes
+
+kim interactions Si
+
+# Universal strain magnitude
+variable delta equal 1.0e-2
+
+# ----------------------------------------------------------
+# 1) Compute and dump the initial undeformed state
+# ----------------------------------------------------------
+compute         2 all pe/atom
+compute         3 all voronoi/atom
+
+dump         1 all custom 1 ./dumpDiff_test/dump.${LoopVar}.init id type x y z vx vy vz c_2 c_3[1]
+dump_modify         1 sort id
+run         0
+undump         1
+
+# Write a restart so we can revert to this state easily
+write_restart   restart.${LoopVar}
+
+# ----------------------------------------------------------
+# 2) Apply 6 strain tensor components (xx, yy, zz, xy, xz, yz)
+# with "positive" (P) and "negative" (N) operations, respectively.
+# ----------------------------------------------------------
+
+# --- XX strain (+/-) ---
+variable direction string xx
+variable sign string P
+include perturb_strain.in
+variable sign string N
+include perturb_strain.in
+
+# --- YY strain (+/-) ---
+variable direction string yy
+variable sign string P
+include perturb_strain.in
+variable sign string N
+include perturb_strain.in
+
+# --- ZZ strain (+/-) ---
+variable direction string zz
+variable sign string P
+include perturb_strain.in
+variable sign string N
+include perturb_strain.in
+
+# --- XY strain (+/-) ---
+variable direction string xy
+variable sign string P
+include perturb_strain.in
+variable sign string N
+include perturb_strain.in
+
+# --- XZ strain (+/-) ---
+variable direction string xz
+variable sign string P
+include perturb_strain.in
+variable sign string N
+include perturb_strain.in
+
+# --- YZ strain (+/-) ---
+variable direction string yz
+variable sign string P
+include perturb_strain.in
+variable sign string N
+include perturb_strain.in
+
+# ----------------------------------------------------------
+# Cleanup the restart file of this loop
+# ----------------------------------------------------------
+shell rm restart.${LoopVar}
+
+# Move on to next snapshot frame
+next  LoopVar
+jump  lammps.in  LOOP_START
