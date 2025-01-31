@@ -6,7 +6,7 @@ The strain perturbation (SP) method follows these steps:
 1. Compute the instantaneous atomic energy in the undeformed state.
 2.  Apply predefined perturbation strains to the simulation box and remap atomic positions accordingly (affine transformation).
 3.  Recompute atomic energy for the deformed state.
-4.  Use the atomic energies from steps (1) and (3) to calculate atomic stress/virial using Eq. (7) in the revised manuscript.
+4.  Use the atomic energies from steps (1) and (3) to calculate atomic stress/virial using Eq. (7) in the revised manuscript. <br>
 Steps (1)-(3) can be performed using most MD simulation packages (here, we provide LAMMPS scripts). Step (4) is a simple post-processing step, for which we provide a Python script.
 
 
