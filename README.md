@@ -1,5 +1,24 @@
 # strain_perturbation_atomic_virial_stress
-This repository contains example scripts for the work "A Strain Perturbation Method for Atomic Stress Calculation with Machine-Learning Potentials"
+This repository contains example scripts for the work "A Strain Perturbation Method for Atomic Stress Calculation with Machine-Learning Potentials."
+
+### Files:
+- lammps.in: Main LAMMPS script for performing strain perturbation and dumping per-atom energy and Voronoi volume.
+- purterb_strain.in: Subfunction read by lammps.in.
+- diff_virial.py: Python script for post-processing LAMMPS dump files for finite difference calculations.
+- parity_plots.ipynb: Jupyter notebook for generating parity plots comparing SP method results with those from the rigid pairwise virial formulation.
+
+### Workflow:
+The strain perturbation (SP) method follows these steps:
+Compute the instantaneous atomic energy in the undeformed state.
+Apply predefined perturbation strains to the simulation box and remap atomic positions accordingly (affine transformation).
+Recompute atomic energy for the deformed state.
+Use the atomic energies from steps (1) and (3) to calculate atomic stress/virial using Eq. (7) in the revised manuscript.
+Steps (1)-(3) can be performed using most MD simulation packages (here, we provide LAMMPS scripts). Step (4) is a simple post-processing step, for which we provide a Python script.
+
+### Notes:
+In principle, this workflow can be implemented as a single function within an MD simulation package. We are actively exploring this integration, and updates will be available in this repository.
+
+
 
 ### ACKNOWLEDGEMENT
 This work was sponsored by the Office of Energy Efficiency and Renewable Energy, Vehicle Technologies Office and was performed under the auspices of the U.S. Department of Energy by Lawrence Livermore National Laboratory under Contract DE-AC52-07NA27344. Computing support for this work came from the Department of Energy's Office of Energy Efficiency and Renewable Energy located at the National Renewable Energy Laboratory and the Computing Grand Challenge program from Lawrence Livermore National Laboratory.
