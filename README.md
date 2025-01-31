@@ -2,12 +2,12 @@
 This repository contains example scripts for the work "A Strain Perturbation Method for Atomic Stress Calculation with Machine-Learning Potentials."
 
 ### Workflow:
-The strain perturbation (SP) method follows these steps:
-(1)_ Compute the instantaneous atomic energy in the undeformed state.
-(2)_ Apply predefined perturbation strains to the simulation box and remap atomic positions accordingly (affine transformation).
-(3)_ Recompute atomic energy for the deformed state.
-(4)_ Use the atomic energies from steps (1) and (3) to calculate atomic stress/virial using Eq. (7) in the revised manuscript.
-Steps (1)-(3) can be performed using most MD simulation packages (here, we provide LAMMPS scripts). Step (4) is a simple post-processing step, for which we provide a Python script.
+The strain perturbation (SP) method follows these steps: 
+(1) Compute the instantaneous atomic energy in the undeformed state. 
+(2) Apply predefined perturbation strains to the simulation box and remap atomic positions accordingly (affine transformation). 
+(3) Recompute atomic energy for the deformed state. 
+(4) Use the atomic energies from steps (1) and (3) to calculate atomic stress/virial using Eq. (7) in the revised manuscript. 
+Steps (1)-(3) can be performed using most MD simulation packages (here, we provide LAMMPS scripts). Step (4) is a simple post-processing step, for which we provide a Python script. 
 
 
 ### Files:
