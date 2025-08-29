@@ -1,5 +1,5 @@
 # strain_perturbation_atomic_virial_stress
-This repository contains example scripts for the work [A Strain Perturbation Method for Atomic Stress Calculation with Machine-Learning Potentials](chrome-extension://efaidnbmnnnibpcajpcglclefindmkaj/https://journals.aps.org/prresearch/pdf/10.1103/jg6w-fdl8) published at Phys. Rev. Research 7, 033131. 
+This repository contains example scripts for the work [A Strain Perturbation Method for Atomic Stress Calculation with Machine-Learning Potentials](https://journals.aps.org/prresearch/pdf/10.1103/jg6w-fdl8) published at Phys. Rev. Research 7, 033131. 
 
 
 ### Workflow:
