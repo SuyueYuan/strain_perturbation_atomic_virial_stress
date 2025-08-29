@@ -1,5 +1,6 @@
 # strain_perturbation_atomic_virial_stress
-This repository contains example scripts for the work "A Strain Perturbation Method for Atomic Stress Calculation with Machine-Learning Potentials", published at Phys. Rev. Research 7, 033131 (https://doi.org/10.1103/jg6w-fdl8).
+This repository contains example scripts for the work "A Strain Perturbation Method for Atomic Stress Calculation with Machine-Learning Potentials", published at Phys. Rev. Research 7, 033131 
+https://doi.org/10.1103/jg6w-fdl8
 
 ### Workflow:
 The strain perturbation (SP) method follows these steps: 
